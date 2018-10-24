@@ -1,1 +1,0 @@
-hazy_img = imread(
