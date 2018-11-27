@@ -5,7 +5,7 @@ function atmospheric_light = get_atmospheric_light(img, dark_channel)
     num_search_pixels = floor(num_pixels * 0.01);
 
     dark_vector = reshape(dark_channel, num_pixels, 1);
-    img_vector = reshape(img, numPixels, 3);
+    img_vector = reshape(img, num_pixels, 3);
 
     [~, indicies] = sort(dark_vector, 'descend');
     accumulator = zeros(1, 3);
