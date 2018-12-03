@@ -1,9 +1,9 @@
-function trans = calculateTransmission(img, atmosphere, omega, patch_size)
-[xsize, ysize, ~] = size(img);
+function trans = calculateTransmission(img, atmosphere, omega, patchSize)
+    [xSize, ySize, ~] = size(img);
 
-atm = repmat(reshape(atmosphere, [1, 1, 3]), xsize, ysize);
+    atm = repmat(reshape(atmosphere, [1, 1, 3]), xSize, ySize);
 
-[dc,~] = get_dark_channel( image ./ atm, patch_size);
+    [dc,~] = calcDarkChannel(img ./ atm, patchSize);
 
-trans = 1 - omega * dc;
+    trans = 1 - omega * dc;
 end

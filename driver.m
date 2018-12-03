@@ -1,28 +1,28 @@
 
 function radiance = driver()
-    img_list = {'HazyImages/HazyQatar'};
-    img = imread([img_list{1}  '.jpg']);
-    [xsize, ysize, ~] = size(img);
+    imgList = {'HazyImages/wisconsin-state-capitol'};
+    imgUint8 = imread([imgList{1}  '.jpg']);
+    img = im2double(imgUint8);
+    [xSize, ySize, ~] = size(img);
     %SHOULD ALLOW FOR SETTING OF CONSTANTS
-    omega = .95;
-    patch_size = 3;
+    omega = .80;
+    patchSize = 5;
     
-    [darkChannel, dark_image] = get_dark_channel(img, patch_size);
+    [darkChannel, darkImage] = calcDarkChannel(img, patchSize);
     
-    atmosphere = get_atmospheric_light(img, darkChannel);
+    atmosphere = calcAtmosphericLight(img, darkChannel);
     
-    trans = calculateTransmission(img, atmosphere, omega, patch_size);
-
+    trans = calculateTransmission(img, atmosphere, omega, patchSize);
+    
     %TODO smooth trans
     
-    radiance = get_radiance(img, trans, atmosphere);
-    
+    radiance = calcRadiance(img, trans, atmosphere);
     imshow(radiance);
     
     %{
-    img_list = {'HazyLondon', 'HazyQatar', 'wisconsin-state-capitol'};
-    patch_list = {5,20,50};
-    collage_img = imread('HazyQatar.jpg');
+    imgList = {'HazyLondon', 'HazyQatar', 'wisconsin-state-capitol'};
+    patchList = {5,20,50};
+    collageImg = imread('HazyQatar.jpg');
     for i=1:length(patch_list)
         tic;
         img = Dark_Image_Prior('HazyQatar',patch_list{i});
